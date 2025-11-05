@@ -78,7 +78,7 @@ async def parse_pdf(
         try:
 
             response = await client.post(
-                endpoint, json={{"url": url, "format": format, "vlm": vlm}}
+                endpoint, json={"url": url, "format": format, "vlm": vlm}
             )
 
             # Read the response content
