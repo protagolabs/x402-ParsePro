@@ -29,7 +29,7 @@ app = FastMCP()
 httpx_default_timeout = os.getenv("HTTPX_DEFAULT_TIMEOUT", "60")
 base_url = "https://x402.api.netmind.ai"
 endpoint = "/inference-api/agent/v1/parse-pdf"
-
+private_key = os.getenv("X402_PRIVATE_KEY", "")
 
 class PaymentRequirements(BaseModel):
     scheme: str
@@ -205,7 +205,6 @@ class _x402HttpxClient(AsyncClient):
 
 @app.tool(name="parse_pdf", description="Parse PDF document to json or markdown")
 async def parse_pdf(
-    private_key: str,
     url: str,
     format: str,
     vlm: bool,
@@ -214,7 +213,6 @@ async def parse_pdf(
     """Call x402 service
 
     Args:
-        private_key (str): User's private key to sign payments
         url (str): URL of the PDF document to parse
         format (str): Desired output format, "json" or "markdown"
         vlm (bool): Whether to use VLM model
